@@ -42,7 +42,6 @@ const game = {
 			let id
 			let imgSrc = `card_images/cards_by_id/${i}.png`
 
-
 			if (i <= 13) {
 				suit = 'club' // assigns suit
 				value = i // assigns value
@@ -95,11 +94,26 @@ const game = {
 				this.playerTwoDeck.push(card)
 			}
 		})
-
 		console.log(this.leftPile);
 		console.log(this.rightPile);
 		console.log(this.playerOneDeck);
 		console.log(this.playerTwoDeck);
+		
+		this.leftPile.forEach((card) => {
+			$('.e').append(card.createCards())
+		})
+		$('.e').append($('<img class="card-53" "id="left-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+		
+		this.rightPile.forEach((card) => {
+			$('.b').append(card.createCards())
+		})
+		$('.b').append($('<img class="card-53" "id="right-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+		
+		this.playerOneDeck.forEach((card) => {
+			$('.k').append(card.createCards())
+		})
+		$('.k').append($('<img class="card-53" id="player1-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+		
 	},
 	startGame() {
 		this.deck.forEach((card, i) => {
@@ -125,7 +139,7 @@ const game = {
 		this.deck.forEach((card) => {
 			$('.a').append(card.createCards())
 		})
-		$('.a').append($('<img id="card-53 "class="card back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+		$('.a').append($('<img class="card-53" id="main-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 	}
 }
 
@@ -138,9 +152,9 @@ $('#start').click(() => {
 })
 
 $('.game-screen').click((e)=> {
-	console.log(e.target);
+	console.log(e.target)
 	const $e = $(e.target)
-	if ($e.hasClass('back') == true) {
+	if ($e.attr('id') == 'main-card-back') {
 		game.dealDeck()
 	} 
 }) 
