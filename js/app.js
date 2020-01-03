@@ -82,7 +82,8 @@ const game = {
 	},
 	dealDeck() {
 		// rearranges the deck array into the gameplay setup by pushing cards into deck/pile/hand arrays
-		// this.shuffle()
+		$('#deal-message').hide()
+		this.shuffle()
 		this.deck.forEach((card, i) => {
 			if (i < 6) {
 				this.leftPile.push(card)
@@ -94,6 +95,7 @@ const game = {
 				this.playerTwoDeck.push(card)
 			}
 		})
+
 		console.log(this.leftPile);
 		console.log(this.rightPile);
 		console.log(this.playerOneDeck);
@@ -123,38 +125,33 @@ const game = {
 		this.deck.forEach((card) => {
 			$('.a').append(card.createCards())
 		})
-		$('.a').append($('<img id="card-53 "class="card value-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+		$('.a').append($('<img id="card-53 "class="card back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 	}
 }
 
 $('#start').click(() => {
 	$('.game-screen').addClass('on')
 	$('.menu-screen').replaceWith($('.game-screen'))
+	game.generateDeck()
 	game.createGameBoard()
 
 })
 
 $('.game-screen').click((e)=> {
 	console.log(e.target);
-	// if ($(e).target.hasClass('a') == true) {
-	// 	$('.game-screen').remove($('#deal-message'))
-	// } else console.log(false);
+	const $e = $(e.target)
+	if ($e.hasClass('back') == true) {
+		game.dealDeck()
+	} 
 }) 
 
-// $('#start').click(() => {
-// 	$('body').append('<div class="game-screen"></div>')
-// 	game.startGame()
-// })
-// $('.a').append($(`<img src=${this.deck[0]['imgSrc']}>`))
 
-game.generateDeck()
-game.dealDeck()
-console.log(game.deck);
 
-($('#card')).css({
-	'border': '1px solid border',
 
-})
+
+
+
+
 
 
 
