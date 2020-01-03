@@ -8,16 +8,8 @@ class Card {
 		this.imgSrc = imgSrc
 	}
 
-	createDiv() {
-		const $newDiv = $('<div>')
-		$newDiv.addClass(this.id).appendTo('body')
-		$newDiv.css({
-			'background-image': `url(${this.imgSrc})`,
-			'height': '215px',
-			'width': '110px',
-			'padding-left': '6px',
-			'padding-top': '5px'
-		})
+	createCards() {
+		return $(`<img id="card-${this.id}"class="card value-${this.value}" src="card_images/cards_by_id/${this.id}.png">`)
 	}
 }
 
@@ -73,7 +65,6 @@ const game = {
 			// instantiate 
 			const card = new Card(suit, value, id, imgSrc)
 			this.deck.push(card)
-			card.createDiv()
 		}
 
 	},
@@ -129,7 +120,10 @@ const game = {
 		$('.game-screen').append('<div class="outline j"></div>')
 		$('.game-screen').append('<div class="outline k"></div>')
 		$('.game-screen').append('<h1 id="deal-message">Click on the deck <br> to deal the cards</h1>')
-		$('.a').append($('<img src="card_images/cards_by_id/53.png">'))
+		this.deck.forEach((card) => {
+			$('.a').append(card.createCards())
+		})
+		$('.a').append($('<img id="card-53 "class="card value-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 	}
 }
 
@@ -157,7 +151,10 @@ game.generateDeck()
 game.dealDeck()
 console.log(game.deck);
 
+($('#card')).css({
+	'border': '1px solid border',
 
+})
 
 
 
