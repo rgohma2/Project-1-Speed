@@ -1,9 +1,10 @@
 body {
-	background: radial-gradient(gray, brown);
+	/*background: radial-gradient(gray, brown);*/
+	background-color: brown;
 }
 
 .menu-screen {
-	background: linear-gradient(black, green);
+	background: radial-gradient(green, black);
 	margin: 100px auto;
 	height: 600px;
 	width: 900px;
@@ -12,17 +13,25 @@ body {
 
 }
 
+.game-screen {
+	background: radial-gradient(green, black);
+	margin: 50px auto;
+	height: 750px;
+	width: 1100px;
+	border: black;
+	border-radius: 5%;
+}
+
 h1 {
 	text-align: center;
 	padding: 10px;
-	font-size: 120px;
+	font-size: 150px;
 	color: white;
-	/*background-color: rgba(0,0,0,0.5);*/
 	border-radius: 17%;
 }
 
 button {
-	margin: 40px 0 0 272px;
+	margin-left: 272px;
 	padding: 15px;
 	font-size: 70px;
 	background-color: red;
@@ -32,7 +41,7 @@ button {
 }
 
 button:hover {
-	margin: 40px 0 0 272px;
+	margin-left: 272px;
 	padding: 15px;
 	font-size: 70px;
 	background-color: brown;
@@ -42,4 +51,13 @@ button:hover {
 	cursor: pointer;
 }
 
+img {
+	height: 70px;
+	width: 30px;
+}
+div {
+	height: 70px;
+	width: 30px;
+	background-color: blue;
+}
 
