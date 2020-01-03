@@ -1,10 +1,15 @@
 console.log('hello world');
 
 class Card {
-	constructor(suit, value, id) {
+	constructor(suit, value, id, imgSrc) {
 		this.suit = suit
 		this.value = value
 		this.id = id
+		this.imgSrc = imgSrc
+	}
+
+	getDiv() {
+		return $('<div>') 
 	}
 }
 
@@ -35,11 +40,14 @@ const game = {
 			let suit
 			let value
 			let id
+			let imgSrc = `card_images/cards_by_id/${i}.png`
+
 
 			if (i <= 13) {
 				suit = 'club' // assigns suit
 				value = i // assigns value
-				id = i 
+				id = i
+				  
 			} else if (i > 13 && i <= 26) {
 				suit = 'spade'
 				value = i - 13 // restarts from 1 for new suit
@@ -51,11 +59,11 @@ const game = {
 			} else if (i > 39 && i <= 52) {
 				suit = 'diamond'
 				value = i - 39
-				id = i 
+				id = i
 			} 
 
 			// instantiate 
-			const card = new Card(suit, value, id)
+			const card = new Card(suit, value, id, imgSrc)
 			this.deck.push(card)
 		}
 
@@ -93,19 +101,22 @@ const game = {
 	},
 	startGame() {
 		this.deck.forEach((card, i) => {
-			// console.log(i + 1);
 			console.log(card['id']);
 			if (card['id'] == i + 1) {
 				$('.game-screen').append(`<img src="card_images/cards_by_id/${card['id']}.png">`)
-
 			}
 		})		
+	},
+	createGameBoard() {
+		$('.game-screen').append()
 	}
 }
 
 $('#start').click(() => {
-	$('.menu-screen').replaceWith('<div class="game-screen"></div>')
-	game.startGame()
+	$('.game-screen').addClass('on')
+	$('.menu-screen').replaceWith($('.game-screen'))
+	// game.startGame()
+	game.createGameBoard()
 })
 
 // $('#start').click(() => {
