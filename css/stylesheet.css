@@ -1,6 +1,6 @@
 body {
-	/*background: radial-gradient(gray, brown);*/
-	background-color: brown;
+	background: radial-gradient(blue, darkred);
+	/*background-color: white;*/
 }
 
 .menu-screen {
@@ -157,7 +157,11 @@ img {
 	padding: 15px;
 }
 
-
+.flip {
+	position: absolute; 
+	top: 180px;
+	right: 900px;
+}
 
 
 

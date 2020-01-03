@@ -11,6 +11,10 @@ class Card {
 	createCards() {
 		return $(`<img id="card-${this.id}"class="card value-${this.value}" src="card_images/cards_by_id/${this.id}.png">`)
 	}
+
+	removeCard() {
+		$(this.id).remove()
+	}
 }
 
 
@@ -113,7 +117,7 @@ const game = {
 			$('.k').append(card.createCards())
 		})
 		$('.k').append($('<img class="card-53" id="player1-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
-		
+		$('.game-screen').append('<button class="flip">Flip</button>')
 	},
 	startGame() {
 		this.deck.forEach((card, i) => {
@@ -140,6 +144,20 @@ const game = {
 			$('.a').append(card.createCards())
 		})
 		$('.a').append($('<img class="card-53" id="main-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
+	},
+	flipCard() {
+		if (this.leftPile.length > 0) {
+			const topCardLeft = this.leftPile.pop()
+			$('.d').append(topCardLeft.createCards())
+			const topCardRight = this.rightPile.pop()
+			$('.c').append(topCardRight.createCards())
+			if (this.leftPile.length == 0){
+				$('.e').remove()
+				$('body').append($('.game-screen').append('<div class="outline e"></div>'))	
+				$('.b').remove()
+				$('body').append($('.game-screen').append('<div class="outline b"></div>'))	
+			}
+		}
 	}
 }
 
@@ -156,10 +174,16 @@ $('.game-screen').click((e)=> {
 	const $e = $(e.target)
 	if ($e.attr('id') == 'main-card-back') {
 		game.dealDeck()
+		$e.attr('id', 'clicked')
 	} 
 }) 
 
-
+$('.game-screen').click((e)=>{
+	const $e = $(e.target)
+	if ($e.hasClass('flip') == true) {
+		game.flipCard()
+	}
+})
 
 
 
