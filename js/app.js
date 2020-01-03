@@ -8,8 +8,16 @@ class Card {
 		this.imgSrc = imgSrc
 	}
 
-	getDiv() {
-		return $('<div>') 
+	createDiv() {
+		const $newDiv = $('<div>')
+		$newDiv.addClass(this.id).appendTo('body')
+		$newDiv.css({
+			'background-image': `url(${this.imgSrc})`,
+			'height': '215px',
+			'width': '110px',
+			'padding-left': '6px',
+			'padding-top': '5px'
+		})
 	}
 }
 
@@ -65,6 +73,7 @@ const game = {
 			// instantiate 
 			const card = new Card(suit, value, id, imgSrc)
 			this.deck.push(card)
+			card.createDiv()
 		}
 
 	},
@@ -108,25 +117,47 @@ const game = {
 		})		
 	},
 	createGameBoard() {
-		$('.game-screen').append()
+		$('.game-screen').append('<div class="outline a"></div>')
+		$('.game-screen').append('<div class="outline b"></div>')
+		$('.game-screen').append('<div class="outline c"></div>')
+		$('.game-screen').append('<div class="outline d"></div>')
+		$('.game-screen').append('<div class="outline e"></div>')
+		$('.game-screen').append('<div class="outline f"></div>')
+		$('.game-screen').append('<div class="outline g"></div>')
+		$('.game-screen').append('<div class="outline h"></div>')
+		$('.game-screen').append('<div class="outline i"></div>')
+		$('.game-screen').append('<div class="outline j"></div>')
+		$('.game-screen').append('<div class="outline k"></div>')
+		$('.game-screen').append('<h1 id="deal-message">Click on the deck <br> to deal the cards</h1>')
+		$('.a').append($('<img src="card_images/cards_by_id/53.png">'))
 	}
 }
 
 $('#start').click(() => {
 	$('.game-screen').addClass('on')
 	$('.menu-screen').replaceWith($('.game-screen'))
-	// game.startGame()
 	game.createGameBoard()
+
 })
+
+$('.game-screen').click((e)=> {
+	console.log(e.target);
+	// if ($(e).target.hasClass('a') == true) {
+	// 	$('.game-screen').remove($('#deal-message'))
+	// } else console.log(false);
+}) 
 
 // $('#start').click(() => {
 // 	$('body').append('<div class="game-screen"></div>')
 // 	game.startGame()
 // })
+// $('.a').append($(`<img src=${this.deck[0]['imgSrc']}>`))
 
 game.generateDeck()
 game.dealDeck()
 console.log(game.deck);
+
+
 
 
 
