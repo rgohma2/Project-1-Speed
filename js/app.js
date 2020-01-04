@@ -9,23 +9,11 @@ class Card {
 	}
 
 	createCards() {
-		return $(`<img id="card-${this.id}"class="card value-${this.value}" src="card_images/cards_by_id/${this.id}.png">`)
+		return $(`<img id="card-${this.id}"class="card value-${this.value}" src="card_images/cards_by_id/${this.id}.png">`).text(this.value)
 	}
 
 	removeCard() {
 		$(this.id).remove()
-	}
-}
-
-
-class Player {
-	constructor(hand, deck) {
-		this.hand = hand
-		this.deck = deck
-	}
-
-	draw() {
-
 	}
 }
 
@@ -35,6 +23,7 @@ const game = {
 	deck: [],
 	playerOneDeck: [],
 	playerTwoDeck: [],
+	playerOneCardsInPlay: [],
 	leftPile: [],
 	rightPile: [],
 	generateDeck() {
@@ -69,9 +58,9 @@ const game = {
 			const card = new Card(suit, value, id, imgSrc)
 			this.deck.push(card)
 		}
-
 	},
 	shuffle() {
+		//randomizes order cards in deck 
 		let m = this.deck.length
 		let t
 		let i 
@@ -133,11 +122,11 @@ const game = {
 		$('.game-screen').append('<div class="outline c"></div>')
 		$('.game-screen').append('<div class="outline d"></div>')
 		$('.game-screen').append('<div class="outline e"></div>')
-		$('.game-screen').append('<div class="outline f"></div>')
-		$('.game-screen').append('<div class="outline g"></div>')
-		$('.game-screen').append('<div class="outline h"></div>')
-		$('.game-screen').append('<div class="outline i"></div>')
-		$('.game-screen').append('<div class="outline j"></div>')
+		$('.game-screen').append('<div class="outline f pOne"></div>')
+		$('.game-screen').append('<div class="outline g pOne"></div>')
+		$('.game-screen').append('<div class="outline h pOne"></div>')
+		$('.game-screen').append('<div class="outline i pOne"></div>')
+		$('.game-screen').append('<div class="outline j pOne"></div>')
 		$('.game-screen').append('<div class="outline k"></div>')
 		$('.game-screen').append('<h1 id="deal-message">Click on the deck <br> to deal the cards</h1>')
 		this.deck.forEach((card) => {
@@ -147,16 +136,28 @@ const game = {
 	},
 	flipCard() {
 		if (this.leftPile.length > 0) {
-			const topCardLeft = this.leftPile.pop()
-			$('.d').append(topCardLeft.createCards())
+			const topCardLeft = this.leftPile.pop() // removes card from end of array
+			$('.d').append(topCardLeft.createCards()) // and puts it on the board
 			const topCardRight = this.rightPile.pop()
 			$('.c').append(topCardRight.createCards())
 			if (this.leftPile.length == 0){
-				$('.e').remove()
-				$('body').append($('.game-screen').append('<div class="outline e"></div>'))	
+				$('.e').remove() // removes cards from deck when its empty
+				$('body').append($('.game-screen').append('<div class="outline e"></div>'))	// puts back outline
 				$('.b').remove()
 				$('body').append($('.game-screen').append('<div class="outline b"></div>'))	
 			}
+		}
+	},
+	drawCards() {
+		const $playerOneHand = $('.pOne')
+		console.log($playerOneHand[0]);
+		for (i = 0; i < $playerOneHand.length; i++) {
+			console.log($($playerOneHand[i]).children('img').length);
+			if ($($playerOneHand[i]).children('img').length == 0) {
+				const cardDrawn = this.playerOneDeck.pop()
+				console.log(cardDrawn.createCards());
+				$($playerOneHand[i]).append(cardDrawn.createCards())
+			} 
 		}
 	}
 }
@@ -185,8 +186,19 @@ $('.game-screen').click((e)=>{
 	}
 })
 
+$('.game-screen').click((e)=>{
+	const $e = $(e.target)
+	if ($e.attr('id') == 'player1-card-back') {
+		game.drawCards()
+	}
+})
 
-
+$('.game-screen').click((e)=>{
+	const $e = $(e.target)
+	if ($e.attr('id') == 'player1-card-back') {
+		game.drawCards()
+	}
+})
 
 
 
