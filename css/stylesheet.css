@@ -76,7 +76,6 @@ img {
 	position: absolute;
 	border: 1px solid transparent;
 	border-radius: 10%
-
 }
 
 .a {
@@ -163,5 +162,12 @@ img {
 	right: 900px;
 }
 
-
+.highlight {
+	height: 225px;
+	width: 120px;
+	display: inline-block;
+	position: absolute;
+	border: 5px solid aqua;
+	border-radius: 10%
+}
 

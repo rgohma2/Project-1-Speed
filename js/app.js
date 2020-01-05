@@ -26,6 +26,7 @@ const game = {
 	playerOneCardsInPlay: [],
 	leftPile: [],
 	rightPile: [],
+	handOneIndex: 0,
 	generateDeck() {
 		// creates 52 cards, seperated into 4 suits of 13  
 		for (let i = 1; i <= 52; i++) {
@@ -119,10 +120,10 @@ const game = {
 	createGameBoard() {
 		$('.game-screen').append('<div class="outline a"></div>')
 		$('.game-screen').append('<div class="outline b"></div>')
-		$('.game-screen').append('<div class="outline c"></div>')
+		$('.game-screen').append('<div class="outline c highlight"></div>')
 		$('.game-screen').append('<div class="outline d"></div>')
 		$('.game-screen').append('<div class="outline e"></div>')
-		$('.game-screen').append('<div class="outline f pOne"></div>')
+		$('.game-screen').append('<div class="outline f pOne highlight"></div>')
 		$('.game-screen').append('<div class="outline g pOne"></div>')
 		$('.game-screen').append('<div class="outline h pOne"></div>')
 		$('.game-screen').append('<div class="outline i pOne"></div>')
@@ -150,16 +151,44 @@ const game = {
 	},
 	drawCards() {
 		const $playerOneHand = $('.pOne')
-		console.log($playerOneHand[0]);
 		for (i = 0; i < $playerOneHand.length; i++) {
-			console.log($($playerOneHand[i]).children('img').length);
 			if ($($playerOneHand[i]).children('img').length == 0) {
 				const cardDrawn = this.playerOneDeck.pop()
-				console.log(cardDrawn.createCards());
 				$($playerOneHand[i]).append(cardDrawn.createCards())
+				return 
 			} 
 		}
-	}
+	},
+	selectCard() {
+		const $pOneHand = $('.pOne')
+		this.handOneIndex = (this.handOneIndex + 1) % $pOneHand.length 
+		$pOneHand.removeClass('highlight')
+		$pOneHand.eq(this.handOneIndex).addClass('highlight')
+	},
+	selectPile() {
+		if ($('.c').hasClass('highlight')) {
+			$('.c').removeClass('highlight')
+			$('.d').addClass('highlight')
+		} else if ($('.d').hasClass('highlight')) {
+			$('.d').removeClass('highlight')
+			$('.c').addClass('highlight')
+		}
+	},
+	whichCard() {
+		const $divSelected = ($('.highlight')[1])
+		const $imgText = $($divSelected).children('img').text()
+		return parseInt($imgText)
+	},
+	whichPile() {
+		const $divSelected = ($('.highlight')[0])
+		const $imgText = $($divSelected).children('img').text()
+		return parseInt($imgText)
+	},
+	checkIfCardPlays() {
+		if (this.whichCard() == (this.whichPile() + 1) || this.whichCard() == (this.whichPile() - 1)) {
+			console.log('stack it up!');
+		}
+	},
 }
 
 $('#start').click(() => {
@@ -167,7 +196,6 @@ $('#start').click(() => {
 	$('.menu-screen').replaceWith($('.game-screen'))
 	game.generateDeck()
 	game.createGameBoard()
-
 })
 
 $('.game-screen').click((e)=> {
@@ -193,16 +221,30 @@ $('.game-screen').click((e)=>{
 	}
 })
 
-$('.game-screen').click((e)=>{
-	const $e = $(e.target)
-	if ($e.attr('id') == 'player1-card-back') {
+$('body').keypress((e)=>{
+	console.log(e.key);
+	if (e.key == 'f') {
 		game.drawCards()
 	}
 })
 
+$('body').keypress((e)=>{
+	if (e.key == 'd') {
+		game.selectCard()
+	}
+})
 
+$('body').keypress((e)=>{
+	if (e.key == 's') {
+		game.selectPile()
+	}
+})
 
-
+$('body').keypress((e)=>{
+	if (e.key == 'a') {
+		game.checkIfCardPlays()
+	}
+})
 
 
 
