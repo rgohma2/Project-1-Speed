@@ -157,14 +157,19 @@ const game = {
 		}
 	},
 	drawCards() {
+		if (this.playerOneDeck.length == 0) {
+			$('.k').remove()
+			$('.game-screen').append('<div class="outline k"></div>')
+		}
+
 		const $playerOneHand = $('.pOne')
 		for (i = 0; i < $playerOneHand.length; i++) {
 			if (this.playerOneCardsInHand[i] == 'none') {
 				const cardDrawn = this.playerOneDeck.pop()
 				$($playerOneHand[i]).append(cardDrawn.createCards())
 				this.playerOneCardsInHand[i] = cardDrawn
-				return
-			} 
+				return 
+			}
 		}
 	},
 	selectCard() {
