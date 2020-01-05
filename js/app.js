@@ -19,7 +19,13 @@ const game = {
 	deck: [],
 	playerOneDeck: [],
 	playerTwoDeck: [],
-	playerOneCardsInHand: [],
+	playerOneCardsInHand: [
+		'none',
+		'none',
+		'none',
+		'none',
+		'none',
+		],
 	playerOneCard: [],
 	leftPile: [],
 	leftPileDiscard: [],
@@ -153,12 +159,11 @@ const game = {
 	drawCards() {
 		const $playerOneHand = $('.pOne')
 		for (i = 0; i < $playerOneHand.length; i++) {
-			if ($($playerOneHand[i]).children('img').length == 0) {
+			if (this.playerOneCardsInHand[i] == 'none') {
 				const cardDrawn = this.playerOneDeck.pop()
 				$($playerOneHand[i]).append(cardDrawn.createCards())
-				this.playerOneCardsInHand.push(cardDrawn)
-				console.log(this.playerOneCardsInHand);
-				return 
+				this.playerOneCardsInHand[i] = cardDrawn
+				return
 			} 
 		}
 	},
@@ -198,13 +203,15 @@ const game = {
 				const card = this.playerOneCard.pop()
 				$('.d').append(card.createCards())
 				this.leftPileDiscard.push(card)
-				($('.pOne')[this.handOneIndex]).children[0].remove()
+				$('.pOne')[this.handOneIndex].children[0].remove()
+				this.playerOneCardsInHand[this.handOneIndex] = 'none'
 			} else if ($('.c').hasClass('highlight')) {
 				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
 				const card = this.playerOneCard.pop()
 				$('.c').append(card.createCards())
 				this.rightPileDiscard.push(card)
 				$('.pOne')[this.handOneIndex].children[0].remove()
+				this.playerOneCardsInHand[this.handOneIndex] = 'none'
 			}
 		}
 	},
