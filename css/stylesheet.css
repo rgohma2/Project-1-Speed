@@ -158,8 +158,11 @@ img {
 
 .flip {
 	position: absolute; 
-	top: 180px;
+	top: 250px;
 	right: 900px;
+	height: 65px;
+	width: 120px;
+	font-size: 28px;
 }
 
 .highlight {
@@ -170,4 +173,32 @@ img {
 	border: 5px solid aqua;
 	border-radius: 10%
 }
+
+.shuffle {
+	position: absolute;
+	top: 160px;
+	right: 900px;
+	height: 65px;
+	width: 120px;
+	font-size: 28px;
+}
+
+.shuffle:hover {
+	font-size: 32px;
+	padding: 0;
+}
+
+.flip:hover {
+	font-size: 32px;
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+
 
