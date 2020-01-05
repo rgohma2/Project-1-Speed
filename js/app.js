@@ -11,10 +11,6 @@ class Card {
 	createCards() {
 		return $(`<img id="card-${this.id}"class="card value-${this.value}" src="card_images/cards_by_id/${this.id}.png">`).text(this.value)
 	}
-
-	removeCard() {
-		$(this.id).remove()
-	}
 }
 
 
@@ -23,9 +19,11 @@ const game = {
 	deck: [],
 	playerOneDeck: [],
 	playerTwoDeck: [],
-	playerOneCardsInPlay: [],
+	playerOneCardsInHand: [],
 	leftPile: [],
+	leftPileDiscard: [],
 	rightPile: [],
+	rightPileDiscard: [],
 	handOneIndex: 0,
 	generateDeck() {
 		// creates 52 cards, seperated into 4 suits of 13  
@@ -140,6 +138,8 @@ const game = {
 			const topCardLeft = this.leftPile.pop() // removes card from end of array
 			$('.d').append(topCardLeft.createCards()) // and puts it on the board
 			const topCardRight = this.rightPile.pop()
+			this.leftPileDiscard.push(topCardLeft)
+			this.rightPileDiscard.push(topCardRight)
 			$('.c').append(topCardRight.createCards())
 			if (this.leftPile.length == 0){
 				$('.e').remove() // removes cards from deck when its empty
@@ -155,6 +155,8 @@ const game = {
 			if ($($playerOneHand[i]).children('img').length == 0) {
 				const cardDrawn = this.playerOneDeck.pop()
 				$($playerOneHand[i]).append(cardDrawn.createCards())
+				this.playerOneCardsInHand.push(cardDrawn)
+				console.log(this.playerOneCardsInHand);
 				return 
 			} 
 		}
@@ -175,14 +177,18 @@ const game = {
 		}
 	},
 	whichCard() {
-		const $divSelected = ($('.highlight')[1])
-		const $imgText = $($divSelected).children('img').text()
-		return parseInt($imgText)
+		const thisCard = this.playerOneCardsInHand[this.handOneIndex]
+		return thisCard.value
 	},
 	whichPile() {
-		const $divSelected = ($('.highlight')[0])
-		const $imgText = $($divSelected).children('img').text()
-		return parseInt($imgText)
+		if ($('.d').hasClass('highlight')) {
+			const leftPile = this.leftPileDiscard[this.leftPileDiscard.length - 1]
+			return leftPile.value
+		} else if ($('.c').hasClass('highlight')) {
+			const rightPile = this.rightPileDiscard[this.rightPileDiscard.length - 1]
+			return rightPile.value
+		}
+
 	},
 	checkIfCardPlays() {
 		if (this.whichCard() == (this.whichPile() + 1) || this.whichCard() == (this.whichPile() - 1)) {
