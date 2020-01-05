@@ -20,6 +20,7 @@ const game = {
 	playerOneDeck: [],
 	playerTwoDeck: [],
 	playerOneCardsInHand: [],
+	playerOneCard: [],
 	leftPile: [],
 	leftPileDiscard: [],
 	rightPile: [],
@@ -178,7 +179,7 @@ const game = {
 	},
 	whichCard() {
 		const thisCard = this.playerOneCardsInHand[this.handOneIndex]
-		return thisCard.value
+		return thisCard
 	},
 	whichPile() {
 		if ($('.d').hasClass('highlight')) {
@@ -188,11 +189,23 @@ const game = {
 			const rightPile = this.rightPileDiscard[this.rightPileDiscard.length - 1]
 			return rightPile.value
 		}
-
 	},
 	checkIfCardPlays() {
-		if (this.whichCard() == (this.whichPile() + 1) || this.whichCard() == (this.whichPile() - 1)) {
-			console.log('stack it up!');
+		if ((this.whichCard().value) == (this.whichPile() + 1) || (this.whichCard().value) == (this.whichPile() - 1)) {
+			console.log('stack it up');
+			if ($('.d').hasClass('highlight')) {
+				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
+				const card = this.playerOneCard.pop()
+				$('.d').append(card.createCards())
+				this.leftPileDiscard.push(card)
+				($('.pOne')[this.handOneIndex]).children[0].remove()
+			} else if ($('.c').hasClass('highlight')) {
+				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
+				const card = this.playerOneCard.pop()
+				$('.c').append(card.createCards())
+				this.rightPileDiscard.push(card)
+				$('.pOne')[this.handOneIndex].children[0].remove()
+			}
 		}
 	},
 }
@@ -228,7 +241,6 @@ $('.game-screen').click((e)=>{
 })
 
 $('body').keypress((e)=>{
-	console.log(e.key);
 	if (e.key == 'f') {
 		game.drawCards()
 	}
