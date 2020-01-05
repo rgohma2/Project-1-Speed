@@ -157,11 +157,6 @@ const game = {
 		}
 	},
 	drawCards() {
-		if (this.playerOneDeck.length == 0) {
-			$('.k').remove()
-			$('.game-screen').append('<div class="outline k"></div>')
-		}
-
 		const $playerOneHand = $('.pOne')
 		for (i = 0; i < $playerOneHand.length; i++) {
 			if (this.playerOneCardsInHand[i] == 'none') {
@@ -169,6 +164,9 @@ const game = {
 				$($playerOneHand[i]).append(cardDrawn.createCards())
 				this.playerOneCardsInHand[i] = cardDrawn
 				return 
+			} else if (this.playerOneDeck.length == 0) {
+				$('.k').remove()
+				$('.game-screen').append('<div class="outline k"></div>')
 			}
 		}
 	},
@@ -201,8 +199,8 @@ const game = {
 		}
 	},
 	checkIfCardPlays() {
-		if ((this.whichCard().value) == (this.whichPile() + 1) || (this.whichCard().value) == (this.whichPile() - 1)) {
-			console.log('stack it up');
+		if ((this.whichCard().value) == (this.whichPile() + 1) || (this.whichCard().value) == (this.whichPile() - 1) ||
+			(this.whichCard().value == 1) && (this.whichPile() == 13) || (this.whichCard().value == 13) && (this.whichPile() == 1)) {
 			if ($('.d').hasClass('highlight')) {
 				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
 				const card = this.playerOneCard.pop()
