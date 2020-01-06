@@ -3,32 +3,14 @@ body {
 	font-family: 'Amatic SC', cursive;
 }
 
-.menu-screen {
-	background: radial-gradient(green, black);
-	margin: 100px auto;
-	height: 700px;
-	width: 900px;
-	border: black;
-	border-radius: 5%;
-	position: relative;
-}
 
 .game-screen {
-	background: transparent;
-	margin: 50px auto;
-	height: 750px;
-	width: 1400px;
-	border: black;
-	border-radius: 5%;
-}
-.on {
 	background: radial-gradient(green, black);
 	margin: 50px auto;
-	height: 750px;
+	height: 800px;
 	width: 1100px;
 	border: black;
 	border-radius: 5%;
-	position: relative;
 }
 
 h1 {
@@ -63,20 +45,6 @@ button:hover {
 	cursor: pointer;
 }
 
-#start {
-	font-size: 64px;
-	position: absolute;
-	bottom: 110px;
-	left: 265px;
-	height: 100px;
-	width: 370px;
-}
-
-#start:hover {
-	font-size: 70px;
-	padding: 0;
-}
-
 img {
 	height: 215px;
 	width: 110px;
@@ -94,74 +62,120 @@ img {
 	display: inline-block;
 	position: absolute;
 	border: 1px solid transparent;
-	border-radius: 10%
+	border-radius: 10%;
 }
 
 .a {
-	right: 35px;
-	top: 120px;
+	right: 235px;
+	top: 75px;
 	border: 3px solid blue;
 }
 
 .b {
-	right: 250px;
-	top: 120px;
+	right: 405px;
+	top: 335px;
 	border: 3px solid blue;
 }
 
 .c {
-	right: 415px;
-	top: 120px;
+	right: 570px;
+	top: 335px;
 	border: 3px solid blue;
+}
+
+.c2 {
+	right: 565px;
+	top: 329px;
+	border: 6px solid transparent;
+	border-radius: 13%;
+	padding: 5px;
+
 }
 
 .d {
-	right: 585px;
-	top: 120px;
+	right: 735px;
+	top: 335px;
 	border: 3px solid blue;
+}
+.d2 {
+	right: 730px;
+	top: 329px;
+	border: 6px solid transparent;
+	border-radius: 13%;
+	padding: 5px;
 }
 
 .e {
-	right: 750px;
-	top: 120px;
+	right: 900px;
+	top: 335px;
 	border: 3px solid blue;
 }
 
 .f {
-	right: 200px;
-	top: 450px;
+	right: 380px;
+	top: 590px;
 	border: 3px solid blue;
 } 
 
 .g {
-	right: 350px;
-	top: 450px;
+	right: 530px;
+	top: 590px;
 	border: 3px solid blue;
 } 
 
 .h {
-	right: 500px;
-	top: 450px;
+	right: 680px;
+	top: 590px;
 	border: 3px solid blue;
 } 
 
 .i {
-	right: 650px;
-	top: 450px;
+	right: 830px;
+	top: 590px;
 	border: 3px solid blue;
 } 
 
 .j {
-	right: 800px;
-	top: 450px;
+	right: 980px;
+	top: 590px;
 	border: 3px solid blue;
 } 
 
 .k {
-	right: 35px;
-	top: 450px;
+	right: 235px;
+	top: 590px;
 	border: 3px solid blue;
 }
+
+.l {
+	right: 380px;
+	top: 75px;
+	border: 3px solid blue;
+} 
+
+.m {
+	right: 530px;
+	top: 75px;
+	border: 3px solid blue;
+} 
+
+.n {
+	right: 680px;
+	top: 75px;
+	border: 3px solid blue;
+} 
+
+.o {
+	right: 830px;
+	top: 75px;
+	border: 3px solid blue;
+} 
+
+.p {
+	right: 980px;
+	top: 75px;
+	border: 3px solid blue;
+} 
 
 .game-screen h1 {
 
@@ -169,8 +183,8 @@ img {
 	color: white;
 	border-radius: 17%;
 	position: absolute;
-	top: 80px;
-	right: 300px;
+	top: 20px;
+	right: 500px;
 	background-color: rgba(0,0,0,0.7);
 	padding: 15px;
 	text-align: center;
@@ -178,8 +192,8 @@ img {
 
 .flip {
 	position: absolute; 
-	top: 250px;
-	right: 900px;
+	top: 450px;
+	right: 1050px;
 	height: 65px;
 	width: 120px;
 	font-size: 34px;
@@ -192,15 +206,16 @@ img {
 	position: absolute;
 	border: 5px solid aqua;
 	background-color: green;
-	/*background: linear-gradient(green, black);*/
+	/*background: linear-gradient(blue, darkred);*/
 	border-radius: 10%
+	padding: 15px;
 }
 
 
 .shuffle {
 	position: absolute;
-	top: 160px;
-	right: 900px;
+	top: 360px;
+	right: 1050px;
 	height: 65px;
 	width: 120px;
 	font-size: 34px;
@@ -229,14 +244,21 @@ h3 {
 	line-height: 25px;
 	width: 225px;
 	height: 180px;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.9);
 	padding: 15px;
 	color: white;
 	border-radius: 17%;
 	position: absolute;
-	bottom: 50px;
-	left: -120px;
+	bottom: -20px;
+	left: 40px;
 	padding: 18px;
+	font-weight: 900;
+}
+
+.p2-instructions {
+	position: absolute;
+	top: 60px;
+	left: 40px;
 }
 
 #instruction-text {
@@ -308,7 +330,23 @@ h3 {
 .select:hover {
 	border: 5px solid white;
 	background-color: red;
-	font-size: 6px;
+	font-size: 64px;
 }
+
+.highlight2 {
+	height: 225px;
+	width: 120px;
+	display: inline-block;
+	position: absolute;
+	border: 5px dashed black;
+	background-color: green;
+	/*background: linear-gradient(black, green);*/
+	border-radius: 10%
+}
+
+
+
+
+
 
 

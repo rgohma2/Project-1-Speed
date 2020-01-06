@@ -1,4 +1,4 @@
-console.log('hello world');
+console.log('hello world2');
 
 class Card {
 	constructor(suit, value, id, imgSrc, played) {
@@ -17,12 +17,16 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 90,
-	timerOn: false,
-	timerId: 0,
 	playerOneDeck: [],
 	playerTwoDeck: [],
 	playerOneCardsInHand: [
+		'none',
+		'none',
+		'none',
+		'none',
+		'none',
+		],
+	playerTwoCardsInHand: [
 		'none',
 		'none',
 		'none',
@@ -35,17 +39,8 @@ const game = {
 	rightPile: [],
 	rightPileDiscard: [],
 	handOneIndex: 0,
-	startTimer() {
-		let timerId = setInterval(() =>{
-			this.printTimer()
-			this.timer--
-		}, 1000)
-		this.timerId = timerId
-	},
-	printTimer() {
-			$('#new-time').text(this.timer)
-			this.checkWin()
-	},
+	handTwoIndex: 0,
+
 	generateDeck() {
 		// creates 52 cards, seperated into 4 suits of 13  
 		for (let i = 1; i <= 52; i++) {
@@ -113,6 +108,8 @@ const game = {
 		console.log(this.playerTwoDeck);
 
 		$('.game-screen').append('<div class="outline b"></div>')
+		$('.game-screen').append('<div class="outline c2"></div>')
+		$('.game-screen').append('<div class="outline d2 highlight2"></div>')
 		$('.game-screen').append('<div class="outline c highlight"></div>')
 		$('.game-screen').append('<div class="outline d"></div>')
 		$('.game-screen').append('<div class="outline e"></div>')
@@ -122,7 +119,12 @@ const game = {
 		$('.game-screen').append('<div class="outline i pOne"></div>')
 		$('.game-screen').append('<div class="outline j pOne"></div>')
 		$('.game-screen').append('<div class="outline k"></div>')
-		$('.game-screen').append(`<h2 id="timer"><span id="new-time"></span></h2>`)
+		$('.game-screen').append('<div class="outline l pTwo highlight2"></div>')
+		$('.game-screen').append('<div class="outline m pTwo"></div>')
+		$('.game-screen').append('<div class="outline n pTwo"></div>')
+		$('.game-screen').append('<div class="outline o pTwo"></div>')
+		$('.game-screen').append('<div class="outline p pTwo"></div>')
+		
 		
 		this.leftPile.forEach((card) => {
 			$('.e').append(card.createCards())
@@ -140,31 +142,11 @@ const game = {
 		$('.k').append($('<img class="card-53" id="player1-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 		$('.game-screen').append('<button class="flip">Flip</button>')
 		$('.game-screen').append('<button class="shuffle">Shuffle</button>')
-		$('.game-screen').append('<button class="timer">Start Timer</button>')
-		$('.game-screen').append('<h3 id="instructions">Press F to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
-		$('.a').hide()
+		$('.game-screen').append('<h3 class="p1-instructions">Press <span>F</span> to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
+		$('.game-screen').append('<h3 class="p2-instructions">Press K to draw <br><br>Press L to choose card<br><br>Press : to choose pile<br><br>Press \' to put card on pile</h3>')
 
 	},
-	displayInstructions() {
-		$('.inst').addClass('show')
-	},
-	hideInstructions() {
-		$('.inst').removeClass('show')
-	},
-	selectGameMode(choice) {
-		if ($(choice).hasClass('game-mode')) {
-			$('.game-mode').removeClass('select')
-			$(choice).addClass('select')
-		}
-	},
-	startGame() {
-		this.deck.forEach((card, i) => {
-			console.log(card['id']);
-			if (card['id'] == i + 1) {
-				$('.game-screen').append(`<img src="card_images/cards_by_id/${card['id']}.png">`)
-			}
-		})		
-	},
+
 	createGameBoard() {
 		$('.game-screen').append('<div class="outline a"></div>')
 		$('.game-screen').append('<h1 id="deal-message">Click on the deck <br> to deal the cards</h1>')
@@ -174,7 +156,7 @@ const game = {
 		$('.a').append($('<img class="card-53" id="main-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 	},
 	flipCard() {
-		if (this.leftPile.length > 0 && this.timerOn == true) {
+		if (this.leftPile.length > 0) {
 			const topCardLeft = this.leftPile.pop() // removes card from end of array
 			this.leftPileDiscard.push(topCardLeft)
 			$('.d').append(topCardLeft.createCards()) // and puts it on the board
@@ -223,12 +205,33 @@ const game = {
 			}
 		}
 	},
+	drawCards2() {
+		const $playerTwoHand = $('.pTwo')
+		for (i = 0; i < $playerTwoHand.length; i++) {
+			if (this.playerTwoCardsInHand[i] == 'none' && this.playerTwoDeck.length > 0) {
+				const cardDrawn = this.playerTwoDeck.pop()
+				$($playerTwoHand[i]).append(cardDrawn.createCards())
+				this.playerTwoCardsInHand[i] = cardDrawn
+				return 
+			} else if (this.playerTwoDeck.length == 0){
+				$('.a').remove()
+				$('.game-screen').append('<div class="outline a"></div>')
+			}
+		}
+	},
 	selectCard() {
 		const $pOneHand = $('.pOne')
 		this.handOneIndex = (this.handOneIndex + 1) % $pOneHand.length 
 		$pOneHand.removeClass('highlight')
 		$pOneHand.eq(this.handOneIndex).addClass('highlight')
 		console.log($pOneHand.eq(this.handOneIndex).children('img').length)
+	},
+	selectCard2() {
+		const $pTwoHand = $('.pTwo')
+		this.handTwoIndex = (this.handTwoIndex + 1) % $pTwoHand.length 
+		$pTwoHand.removeClass('highlight2')
+		$pTwoHand.eq(this.handTwoIndex).addClass('highlight2')
+		console.log($pTwoHand.eq(this.handTwoIndex).children('img').length)
 	},
 	selectPile() {
 		if ($('.c').hasClass('highlight')) {
@@ -237,6 +240,15 @@ const game = {
 		} else if ($('.d').hasClass('highlight')) {
 			$('.d').removeClass('highlight')
 			$('.c').addClass('highlight')
+		}
+	},
+	selectPile2() {
+		if ($('.c2').hasClass('highlight2')) {
+			$('.c2').removeClass('highlight2')
+			$('.d2').addClass('highlight2')
+		} else if ($('.d2').hasClass('highlight2')) {
+			$('.d2').removeClass('highlight2')
+			$('.c2').addClass('highlight2')
 		}
 	},
 	whichCard() {
@@ -274,6 +286,16 @@ const game = {
 			}
 		}
 	},
+	startGame() {
+		game.generateDeck()
+		game.createGameBoard()	
+		// this.deck.forEach((card, i) => {
+		// 	console.log(card['id']);
+		// 	if (card['id'] == i + 1) {
+		// 		$('.game-screen').append(`<img src="card_images/cards_by_id/${card['id']}.png">`)
+		// 	}
+		// })	
+	},
 	checkWin() {
 		let cardsPlayed = 0
 		this.deck.forEach((card) => {
@@ -290,30 +312,9 @@ const game = {
 			alert('you lose')
 		}
 	},
-	stopTimer() {
-		clearInterval(this.timerId)
-	}
 }
 
-$('#start').click(() => {
-	$('.game-screen').addClass('on')
-	$('.menu-screen').replaceWith($('.game-screen'))
-	game.generateDeck()
-	game.createGameBoard()
-})
 
-$('.menu-screen').click((e) => {
-	console.log(e.target);
-	game.selectGameMode(e.target)
-})
-
-$('#instruction-text').click(() => {
-	game.displayInstructions()
-})
-
-$('.inst').click(() => {
-	game.hideInstructions()
-})
 
 $('.game-screen').click((e)=> {
 	console.log(e.target);
@@ -345,15 +346,7 @@ $('.game-screen').click((e)=>{
 	}
 })
 
-$('.game-screen').click((e)=>{
-	const $e = $(e.target)
-	if ($e.attr('class') == 'timer') {
-		game.startTimer()
-		$('.timer').hide()
-		// $('#timer').hide()
-		game.timerOn = true
-	}
-})
+
 
 $('body').keypress((e)=>{
 	if (e.key == 'f') {
@@ -379,9 +372,30 @@ $('body').keypress((e)=>{
 	}
 })
 
+$('body').keypress((e)=>{
+	if (e.key == 'k') {
+		game.drawCards2()
+	}
+})
+
+$('body').keypress((e)=>{
+	if (e.key == 'l') {
+		game.selectCard2()
+	}
+})
+
+$('body').keypress((e)=>{
+	if (e.key == ';') {
+		game.selectPile2()
+	}
+})
+
+$('body').keypress((e)=>{
+	if (e.key == "'") {
+		game.checkIfCardPlays2()
+	}
+})
 
 
-
-
-
+game.startGame()
 
