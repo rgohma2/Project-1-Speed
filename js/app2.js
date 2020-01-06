@@ -34,6 +34,7 @@ const game = {
 		'none',
 		],
 	playerOneCard: [],
+	playerTwoCard: [],
 	leftPile: [],
 	leftPileDiscard: [],
 	rightPile: [],
@@ -255,11 +256,24 @@ const game = {
 		const thisCard = this.playerOneCardsInHand[this.handOneIndex]
 		return thisCard
 	},
+	whichCard2() {
+		const thisCard = this.playerTwoCardsInHand[this.handTwoIndex]
+		return thisCard
+	},
 	whichPile() {
 		if ($('.d').hasClass('highlight')) {
 			const leftPile = this.leftPileDiscard[this.leftPileDiscard.length - 1]
 			return leftPile.value
 		} else if ($('.c').hasClass('highlight')) {
+			const rightPile = this.rightPileDiscard[this.rightPileDiscard.length - 1]
+			return rightPile.value
+		}
+	},
+	whichPile2() {
+		if ($('.d2').hasClass('highlight2')) {
+			const leftPile = this.leftPileDiscard[this.leftPileDiscard.length - 1]
+			return leftPile.value
+		} else if ($('.c2').hasClass('highlight2')) {
 			const rightPile = this.rightPileDiscard[this.rightPileDiscard.length - 1]
 			return rightPile.value
 		}
@@ -283,6 +297,28 @@ const game = {
 				this.rightPileDiscard.push(card)
 				$('.pOne')[this.handOneIndex].children[0].remove()
 				this.playerOneCardsInHand[this.handOneIndex] = 'none'
+			}
+		}
+	},
+	checkIfCardPlays2() {
+		if ((this.whichCard2().value) == (this.whichPile2() + 1) || (this.whichCard2().value) == (this.whichPile2() - 1) ||
+			(this.whichCard2().value == 1) && (this.whichPile2() == 13) || (this.whichCard2().value == 13) && (this.whichPile2() == 1)) {
+			if ($('.d2').hasClass('highlight2')) {
+				this.playerTwoCard.push(this.playerTwoCardsInHand[this.handTwoIndex])
+				const card = this.playerTwoCard.pop()
+				$('.d').append(card.createCards())
+				card.played = true
+				this.leftPileDiscard.push(card)
+				$('.pTwo')[this.handTwoIndex].children[0].remove()
+				this.playerTwoCardsInHand[this.handTwoIndex] = 'none'
+			} else if ($('.c2').hasClass('highlight2')) {
+				this.playerTwoCard.push(this.playerTwoCardsInHand[this.handTwoIndex])
+				const card = this.playerTwoCard.pop()
+				$('.c').append(card.createCards())
+				card.played = true
+				this.rightPileDiscard.push(card)
+				$('.pTwo')[this.handTwoIndex].children[0].remove()
+				this.playerTwoCardsInHand[this.handTwoIndex] = 'none'
 			}
 		}
 	},

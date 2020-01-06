@@ -219,7 +219,7 @@ img {
 .timer {
 	position: absolute;
 	left: 460px;
-	top: 40px;
+	top: 20px;
 	font-size: 50px;
 	
 }
@@ -308,7 +308,7 @@ h3 {
 .select:hover {
 	border: 5px solid white;
 	background-color: red;
-	font-size: 6px;
+	font-size: 64px;
 }
 
 

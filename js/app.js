@@ -158,6 +158,7 @@ const game = {
 		}
 	},
 	startGame() {
+
 		this.deck.forEach((card, i) => {
 			console.log(card['id']);
 			if (card['id'] == i + 1) {
@@ -292,15 +293,34 @@ const game = {
 	},
 	stopTimer() {
 		clearInterval(this.timerId)
-	}
+	},
+	chooseTwoPlayer() {
+		$('#start').html($('<a href="index2.html">Start Game</a>'))
+	},
+	chooseOnePlayer() {
+		$('#start').text('Start Game')
+	},
 }
 
 $('#start').click(() => {
-	$('.game-screen').addClass('on')
-	$('.menu-screen').replaceWith($('.game-screen'))
-	game.generateDeck()
-	game.createGameBoard()
+	if ($('.one').hasClass('select')) {
+		$('.game-screen').addClass('on')
+		$('.menu-screen').replaceWith($('.game-screen'))
+		game.generateDeck()
+		game.createGameBoard()
+	} else if ($('.two').hasClass('select')) {
+		game.chooseTwoPlayer()
+	}
 })
+
+$('.two').click(() => {
+	game.chooseTwoPlayer()
+})
+
+$('.one').click(() => {
+	game.chooseOnePlayer()
+})
+
 
 $('.menu-screen').click((e) => {
 	console.log(e.target);
