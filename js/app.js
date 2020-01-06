@@ -5,6 +5,7 @@ class Card {
 		this.suit = suit
 		this.value = value
 		this.id = id
+		this.played = false
 		this.imgSrc = imgSrc
 	}
 
@@ -14,9 +15,11 @@ class Card {
 }
 
 
-
 const game = {
 	deck: [],
+	timer: 90,
+	timerOn: false,
+	timerId: 0,
 	playerOneDeck: [],
 	playerTwoDeck: [],
 	playerOneCardsInHand: [
@@ -32,6 +35,18 @@ const game = {
 	rightPile: [],
 	rightPileDiscard: [],
 	handOneIndex: 0,
+	startTimer() {
+		let timerId = setInterval(() =>{
+			this.printTimer()
+			this.timer--
+		}, 1000)
+		this.timerId = timerId
+
+	},
+	printTimer() {
+			$('#new-time').text(this.timer)
+			this.checkWin()
+	},
 	generateDeck() {
 		// creates 52 cards, seperated into 4 suits of 13  
 		for (let i = 1; i <= 52; i++) {
@@ -108,6 +123,7 @@ const game = {
 		$('.game-screen').append('<div class="outline i pOne"></div>')
 		$('.game-screen').append('<div class="outline j pOne"></div>')
 		$('.game-screen').append('<div class="outline k"></div>')
+		$('.game-screen').append(`<h2 id="timer"><span id="new-time"></span></h2>`)
 		
 		this.leftPile.forEach((card) => {
 			$('.e').append(card.createCards())
@@ -125,6 +141,9 @@ const game = {
 		$('.k').append($('<img class="card-53" id="player1-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 		$('.game-screen').append('<button class="flip">Flip</button>')
 		$('.game-screen').append('<button class="shuffle">Shuffle</button>')
+		$('.game-screen').append('<button class="timer">Start Timer</button>')
+		$('.game-screen').append('<h3 id="instructions">Press F to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
+
 	},
 	startGame() {
 		this.deck.forEach((card, i) => {
@@ -143,7 +162,7 @@ const game = {
 		$('.a').append($('<img class="card-53" id="main-card-back" src="card_images/cards_by_id/53.png">').css({'position': 'absolute'}))
 	},
 	flipCard() {
-		if (this.leftPile.length > 0) {
+		if (this.leftPile.length > 0 && this.timerOn == true) {
 			const topCardLeft = this.leftPile.pop() // removes card from end of array
 			this.leftPileDiscard.push(topCardLeft)
 			$('.d').append(topCardLeft.createCards()) // and puts it on the board
@@ -160,7 +179,6 @@ const game = {
 	},
 	shufflePile() {
 		this.shuffle(this.leftPileDiscard)
-		console.log(this.leftPileDiscard);
 		this.shuffle(this.rightPile)
 		if (this.leftPile.length == 0) {
 			this.leftPileDiscard.forEach((card) => {
@@ -198,6 +216,7 @@ const game = {
 		this.handOneIndex = (this.handOneIndex + 1) % $pOneHand.length 
 		$pOneHand.removeClass('highlight')
 		$pOneHand.eq(this.handOneIndex).addClass('highlight')
+		console.log($pOneHand.eq(this.handOneIndex).children('img').length)
 	},
 	selectPile() {
 		if ($('.c').hasClass('highlight')) {
@@ -241,6 +260,22 @@ const game = {
 			}
 		}
 	},
+	// checkWin() {
+	// 	this.playerOneCardsInHand.forEach((card) => {
+	// 		if (card[]) {
+	// 			if (card == 'none') {
+	// 			alert('you win')
+	// 			clearInterval(this.timerId)	
+	// 			} 
+	// 		} else if (this.timer == 0) {
+	// 			clearInterval(this.timerId)
+	// 			alert('you lose')
+	// 		}
+	// 	})
+	// },
+	stopTimer() {
+		clearInterval(this.timerId)
+	}
 }
 
 $('#start').click(() => {
@@ -251,7 +286,7 @@ $('#start').click(() => {
 })
 
 $('.game-screen').click((e)=> {
-	console.log(e.target)
+	console.log(e.target);
 	const $e = $(e.target)
 	if ($e.attr('id') == 'main-card-back') {
 		game.dealDeck()
@@ -277,6 +312,16 @@ $('.game-screen').click((e)=>{
 	const $e = $(e.target)
 	if ($e.attr('id') == 'player1-card-back') {
 		game.drawCards()
+	}
+})
+
+$('.game-screen').click((e)=>{
+	const $e = $(e.target)
+	if ($e.attr('class') == 'timer') {
+		game.startTimer()
+		$('.timer').hide()
+		// $('#timer').hide()
+		game.timerOn = true
 	}
 })
 

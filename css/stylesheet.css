@@ -10,7 +10,7 @@ body {
 	width: 900px;
 	border: black;
 	border-radius: 5%;
-
+	position: relative;
 }
 
 .game-screen {
@@ -37,10 +37,15 @@ h1 {
 	color: white;
 }
 
+h2 {
+	position: absolute;
+	left: 510px;
+	top: 0px;
+	font-size: 50px;
+	color: red;
+}
+
 button {
-	margin-left: 272px;
-	padding: 15px;
-	font-size: 70px;
 	background-color: red;
 	border-color: red;
 	border-radius: 15%;
@@ -48,14 +53,25 @@ button {
 }
 
 button:hover {
-	margin-left: 272px;
-	padding: 15px;
-	font-size: 70px;
 	background-color: brown;
 	border-color: brown;
 	border-radius: 15%;
 	color: white;
 	cursor: pointer;
+}
+
+#start {
+	font-size: 64px;
+	position: absolute;
+	bottom: 112px;
+	left: 265px;
+	height: 100px;
+	width: 370px;
+}
+
+#start:hover {
+	font-size: 70px;
+	padding: 0;
 }
 
 img {
@@ -150,7 +166,7 @@ img {
 	color: white;
 	border-radius: 17%;
 	position: absolute;
-	top: 100px;
+	top: 80px;
 	right: 300px;
 	background-color: rgba(0,0,0,0.7);
 	padding: 15px;
@@ -171,8 +187,11 @@ img {
 	display: inline-block;
 	position: absolute;
 	border: 5px solid aqua;
+	background-color: green;
+	background: linear-gradient(black, green);
 	border-radius: 10%
 }
+
 
 .shuffle {
 	position: absolute;
@@ -191,6 +210,28 @@ img {
 .flip:hover {
 	font-size: 32px;
 	padding: 0;
+}
+
+.timer {
+	position: absolute;
+	left: 460px;
+	top: 40px;
+	font-size: 28px;
+	
+}
+
+h3 {
+	font-size: 20px;
+	width: 225px;
+	height: 180px;
+	background-color: rgba(0,0,0,0.7);
+	padding: 15px;
+	color: white;
+	border-radius: 17%;
+	position: absolute;
+	bottom: 60px;
+	left: -120px;
+	padding: 15px;
 }
 
 
