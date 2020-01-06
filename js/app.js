@@ -1,7 +1,7 @@
 console.log('hello world');
 
 class Card {
-	constructor(suit, value, id, imgSrc) {
+	constructor(suit, value, id, imgSrc, played) {
 		this.suit = suit
 		this.value = value
 		this.id = id
@@ -17,7 +17,7 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 90,
+	timer: 190,
 	timerOn: false,
 	timerId: 0,
 	playerOneDeck: [],
@@ -41,7 +41,6 @@ const game = {
 			this.timer--
 		}, 1000)
 		this.timerId = timerId
-
 	},
 	printTimer() {
 			$('#new-time').text(this.timer)
@@ -247,6 +246,7 @@ const game = {
 				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
 				const card = this.playerOneCard.pop()
 				$('.d').append(card.createCards())
+				card.played = true
 				this.leftPileDiscard.push(card)
 				$('.pOne')[this.handOneIndex].children[0].remove()
 				this.playerOneCardsInHand[this.handOneIndex] = 'none'
@@ -254,25 +254,29 @@ const game = {
 				this.playerOneCard.push(this.playerOneCardsInHand[this.handOneIndex])
 				const card = this.playerOneCard.pop()
 				$('.c').append(card.createCards())
+				card.played = true
 				this.rightPileDiscard.push(card)
 				$('.pOne')[this.handOneIndex].children[0].remove()
 				this.playerOneCardsInHand[this.handOneIndex] = 'none'
 			}
 		}
 	},
-	// checkWin() {
-	// 	this.playerOneCardsInHand.forEach((card) => {
-	// 		if (card[]) {
-	// 			if (card == 'none') {
-	// 			alert('you win')
-	// 			clearInterval(this.timerId)	
-	// 			} 
-	// 		} else if (this.timer == 0) {
-	// 			clearInterval(this.timerId)
-	// 			alert('you lose')
-	// 		}
-	// 	})
-	// },
+	checkWin() {
+		let cardsPlayed = 0
+		this.deck.forEach((card) => {
+			if (card.played == true) {
+					cardsPlayed++
+					console.log(cardsPlayed);
+			}
+		})
+		if (this.playerOneDeck.length == 0 && cardsPlayed == 20) {
+			alert('you win')
+			clearInterval(this.timerId)	
+		} else if (this.timer == 0) {
+			clearInterval(this.timerId)
+			alert('you lose')
+		}
+	},
 	stopTimer() {
 		clearInterval(this.timerId)
 	}
