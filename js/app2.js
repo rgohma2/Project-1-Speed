@@ -1,11 +1,12 @@
 console.log('hello world2');
 
 class Card {
-	constructor(suit, value, id, imgSrc, played) {
+	constructor(suit, value, id, imgSrc, played, played2) {
 		this.suit = suit
 		this.value = value
 		this.id = id
 		this.played = false
+		this.played2 = false
 		this.imgSrc = imgSrc
 	}
 
@@ -146,8 +147,16 @@ const game = {
 		$('.game-screen').append('<h3 class="p1-instructions">Press <span>F</span> to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
 		$('.game-screen').append('<h3 class="p2-instructions">Press K to draw <br><br>Press L to choose card<br><br>Press : to choose pile<br><br>Press \' to put card on pile</h3>')
 
+	}, startTimer() {
+		setInterval(() =>{
+			this.checkCardsRemaining()
+			this.checkWin()
+		}, 100)	
 	},
-
+	checkCardsRemaining() {
+		$('#card-count').text(this.playerOneDeck.length)
+		$('#card-count2').text(this.playerTwoDeck.length)
+	},
 	createGameBoard() {
 		$('.game-screen').append('<div class="outline a"></div>')
 		$('.game-screen').append('<h1 id="deal-message">Click on the deck <br> to deal the cards</h1>')
@@ -307,7 +316,7 @@ const game = {
 				this.playerTwoCard.push(this.playerTwoCardsInHand[this.handTwoIndex])
 				const card = this.playerTwoCard.pop()
 				$('.d').append(card.createCards())
-				card.played = true
+				card.played2 = true
 				this.leftPileDiscard.push(card)
 				$('.pTwo')[this.handTwoIndex].children[0].remove()
 				this.playerTwoCardsInHand[this.handTwoIndex] = 'none'
@@ -315,7 +324,7 @@ const game = {
 				this.playerTwoCard.push(this.playerTwoCardsInHand[this.handTwoIndex])
 				const card = this.playerTwoCard.pop()
 				$('.c').append(card.createCards())
-				card.played = true
+				card.played2 = true
 				this.rightPileDiscard.push(card)
 				$('.pTwo')[this.handTwoIndex].children[0].remove()
 				this.playerTwoCardsInHand[this.handTwoIndex] = 'none'
@@ -323,29 +332,28 @@ const game = {
 		}
 	},
 	startGame() {
-		game.generateDeck()
-		game.createGameBoard()	
-		// this.deck.forEach((card, i) => {
-		// 	console.log(card['id']);
-		// 	if (card['id'] == i + 1) {
-		// 		$('.game-screen').append(`<img src="card_images/cards_by_id/${card['id']}.png">`)
-		// 	}
-		// })	
+		this.generateDeck()
+		this.createGameBoard()
+		this.startTimer()	
 	},
 	checkWin() {
 		let cardsPlayed = 0
+		let cardsPlayed2 = 0
 		this.deck.forEach((card) => {
 			if (card.played == true) {
-					cardsPlayed++
-					console.log(cardsPlayed);
+				cardsPlayed++
+				console.log(cardsPlayed);
+			} else if (card.played2 == true) {
+				cardsPlayed2++
+				console.log(cardsPlayed2);
 			}
 		})
 		if (this.playerOneDeck.length == 0 && cardsPlayed == 20) {
-			alert('you win')
-			clearInterval(this.timerId)	
-		} else if (this.timer == 0) {
-			clearInterval(this.timerId)
-			alert('you lose')
+			alert('Player 1 wins')
+			return
+		} else if (this.playerTwoDeck.length == 0 && cardsPlayed2 == 20) {
+			alert('Player 2 wins')
+			return
 		}
 	},
 }
@@ -356,7 +364,10 @@ $('.game-screen').click((e)=> {
 	console.log(e.target);
 	const $e = $(e.target)
 	if ($e.attr('id') == 'main-card-back') {
+		$('.game-screen').append('<h4 id="card-count"></h4>')
+		$('.game-screen').append('<h4 id="card-count2"></h4>')
 		game.dealDeck()
+		game.startTimer()
 		$e.attr('id', 'clicked')
 	} 
 }) 
@@ -381,8 +392,6 @@ $('.game-screen').click((e)=>{
 		game.drawCards()
 	}
 })
-
-
 
 $('body').keypress((e)=>{
 	if (e.key == 'f') {

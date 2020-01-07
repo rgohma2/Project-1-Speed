@@ -17,7 +17,7 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 90,
+	timer: 75,
 	timerOn: false,
 	timerId: 0,
 	playerOneDeck: [],
@@ -42,9 +42,17 @@ const game = {
 		}, 1000)
 		this.timerId = timerId
 	},
-	printTimer() {
-			$('#new-time').text(this.timer)
+	startTimer2() {
+		setInterval(() =>{
 			this.checkWin()
+			this.changeCardCount()
+		}, 100)
+	},
+	changeCardCount() {
+		$('#card-count').text(this.playerOneDeck.length)
+	},
+	printTimer() {
+			$('#new-time').text(this.timer)		
 	},
 	generateDeck() {
 		// creates 52 cards, seperated into 4 suits of 13  
@@ -142,6 +150,7 @@ const game = {
 		$('.game-screen').append('<button class="shuffle">Shuffle</button>')
 		$('.game-screen').append('<button class="timer">Start Timer</button>')
 		$('.game-screen').append('<h3 id="instructions">Press F to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
+		$('.game-screen').append('<h4 id="card-count">70</h4>')
 		$('.a').hide()
 
 	},
@@ -158,11 +167,11 @@ const game = {
 		}
 	},
 	startGame() {
-
 		this.deck.forEach((card, i) => {
 			console.log(card['id']);
 			if (card['id'] == i + 1) {
 				$('.game-screen').append(`<img src="card_images/cards_by_id/${card['id']}.png">`)
+
 			}
 		})		
 	},
@@ -220,6 +229,7 @@ const game = {
 				return 
 			} else if (this.playerOneDeck.length == 0){
 				$('.k').remove()
+				$('#card-count').hide()
 				$('.game-screen').append('<div class="outline k"></div>')
 			}
 		}
@@ -339,6 +349,7 @@ $('.game-screen').click((e)=> {
 	console.log(e.target);
 	const $e = $(e.target)
 	if ($e.attr('id') == 'main-card-back') {
+		game.startTimer2()
 		game.dealDeck()
 		$e.attr('id', 'clicked')
 	} 

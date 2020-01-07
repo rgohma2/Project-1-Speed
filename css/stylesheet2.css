@@ -344,6 +344,26 @@ h3 {
 	border-radius: 10%
 }
 
+#card-count {
+	font-size: 50px;
+	color: white;
+	background-color: red;
+	border-radius: 15%;
+	position: absolute;
+	right: 280px;
+	top: 605px;
+	z-index: 1;
+}
+
+#card-count2 {
+	font-size: 50px;
+	color: white;
+	background-color: red;
+	border-radius: 15%;
+	position: absolute;
+	right: 280px;
+	top: 90px;	
+}
 
 
 

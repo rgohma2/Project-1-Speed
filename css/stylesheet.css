@@ -311,4 +311,20 @@ h3 {
 	font-size: 64px;
 }
 
+a {
+	text-decoration: none;
+	color: white;
+}
+
+#card-count {
+	font-size: 50px;
+	color: white;
+	background-color: red;
+	border-radius: 15%;
+	position: absolute;
+	right: 80px;
+	top: 470px;
+	z-index: 1;
+}
+
 
