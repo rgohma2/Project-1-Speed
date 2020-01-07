@@ -365,7 +365,21 @@ h3 {
 	top: 90px;	
 }
 
-
+.end {
+	font-size: 70px;
+	line-height: 90px;
+	width: 225px;
+	height: 180px;
+	background-color: rgba(0,0,0,0.7);
+	padding: 15px;
+	color: white;
+	border-radius: 17%;
+	position: absolute;
+	bottom: 200px;
+	left: 590px;
+	padding: 18px;
+	text-align: center;
+}
 
 
 

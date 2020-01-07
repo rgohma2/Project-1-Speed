@@ -254,27 +254,22 @@ h3 {
 
 .inst {
 
-	font-size: 60px;
-	color: transparent;
-	border-radius: 17%;
-	position: absolute;
-	top: -200px;
-	right: 300px;
-	background-color: transparent;
-	padding: 15px;
-
-}
-
-.show {
-	font-size: 60px;
+	font-size: 46px;
 	color: white;
+	text-align: center;
+	height: 570px;
+	width: 500px;
 	border-radius: 17%;
 	position: absolute;
-	top: 80px;
-	right: 300px;
-	background-color: rgba(0,0,0,0.9);
+	top: -50px;
+	right: 190px;
+	background-color: rgba(0,0,0,0.95);
 	padding: 15px;
+	z-index: 1;
+	display: none;
 }
+
+
 
 .game-mode {
 	font-size: 64px;
@@ -325,6 +320,36 @@ a {
 	right: 80px;
 	top: 470px;
 	z-index: 1;
+}
+
+.end {
+	font-size: 70px;
+	width: 225px;
+	height: 180px;
+	background-color: rgba(0,0,0,0.7);
+	padding: 15px;
+	color: white;
+	border-radius: 17%;
+	position: absolute;
+	bottom: 350px;
+	left: 400px;
+	padding: 18px;
+	text-align: center;
+}
+
+#begin {
+	font-size: 30px;
+	line-height: 25px;
+	width: 225px;
+	height: 30px;
+	background-color: rgba(0,0,0,0.7);
+	padding: 15px;
+	color: white;
+	border-radius: 17%;
+	position: absolute;
+	top: -10px;
+	left: 130px;
+	padding: 18px;
 }
 
 

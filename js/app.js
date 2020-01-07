@@ -17,9 +17,10 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 75,
+	timer: 5,
 	timerOn: false,
 	timerId: 0,
+	cardsPlayed: 0,
 	playerOneDeck: [],
 	playerTwoDeck: [],
 	playerOneCardsInHand: [
@@ -102,7 +103,7 @@ const game = {
 	},
 	dealDeck() {
 		// rearranges the deck array into the gameplay setup by pushing cards into deck/pile/hand arrays
-		$('#deal-message').hide()
+		$('#deal-message').fadeOut()
 		this.shuffle(this.deck)
 		this.deck.forEach((card, i) => {
 			if (i < 6) {
@@ -150,15 +151,16 @@ const game = {
 		$('.game-screen').append('<button class="shuffle">Shuffle</button>')
 		$('.game-screen').append('<button class="timer">Start Timer</button>')
 		$('.game-screen').append('<h3 id="instructions">Press F to draw <br><br>Press D to choose card<br><br>Press S to choose pile<br><br>Press A to put card on pile</h3>')
-		$('.game-screen').append('<h4 id="card-count">70</h4>')
+		$('.game-screen').append('<h3 id="begin">Press start timer to begin</h4>')
+		$('.game-screen').append('<h4 id="card-count"></h4>')
 		$('.a').hide()
 
 	},
 	displayInstructions() {
-		$('.inst').addClass('show')
+		$('.inst').fadeIn()
 	},
 	hideInstructions() {
-		$('.inst').removeClass('show')
+		$('.inst').fadeOut()
 	},
 	selectGameMode(choice) {
 		if ($(choice).hasClass('game-mode')) {
@@ -292,13 +294,14 @@ const game = {
 					cardsPlayed++
 					console.log(cardsPlayed);
 			}
+			this.cardsPlayed = cardsPlayed
 		})
-		if (this.playerOneDeck.length == 0 && cardsPlayed == 20) {
-			alert('you win')
+		if (cardsPlayed == 20) {
+			$('.game-screen').append('<h3 class="end">You Win!</h3>')
 			clearInterval(this.timerId)	
 		} else if (this.timer == 0) {
 			clearInterval(this.timerId)
-			alert('you lose')
+			$('.game-screen').append('<h3 class="end">You Lose!</h3>')
 		}
 	},
 	stopTimer() {
@@ -310,6 +313,23 @@ const game = {
 	chooseOnePlayer() {
 		$('#start').text('Start Game')
 	},
+	checkKey(key) {
+		if (this.cardsPlayed < 20 && this.timer != 0) {
+			if (key == 'f') {
+				this.drawCards()
+			} else if (key == 'd') {
+				this.selectCard()
+			} else if (key == 's') {
+				this.selectPile()
+			} else if (key == 'a') {
+				this.checkIfCardPlays()
+			}
+		} else {
+			$('.shuffle').hide()
+			$('.flip').hide()
+			$('#new-time').text('0')
+		}
+	}
 }
 
 $('#start').click(() => {
@@ -369,17 +389,12 @@ $('.game-screen').click((e)=>{
 	}
 })
 
-$('.game-screen').click((e)=>{
-	const $e = $(e.target)
-	if ($e.attr('id') == 'player1-card-back') {
-		game.drawCards()
-	}
-})
 
 $('.game-screen').click((e)=>{
 	const $e = $(e.target)
 	if ($e.attr('class') == 'timer') {
 		game.startTimer()
+		$('#begin').fadeOut()
 		$('.timer').hide()
 		// $('#timer').hide()
 		game.timerOn = true
@@ -387,28 +402,10 @@ $('.game-screen').click((e)=>{
 })
 
 $('body').keypress((e)=>{
-	if (e.key == 'f') {
-		game.drawCards()
-	}
+	game.checkKey(e.key)
 })
 
-$('body').keypress((e)=>{
-	if (e.key == 'd') {
-		game.selectCard()
-	}
-})
 
-$('body').keypress((e)=>{
-	if (e.key == 's') {
-		game.selectPile()
-	}
-})
-
-$('body').keypress((e)=>{
-	if (e.key == 'a') {
-		game.checkIfCardPlays()
-	}
-})
 
 
 

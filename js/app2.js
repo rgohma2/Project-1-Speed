@@ -34,6 +34,8 @@ const game = {
 		'none',
 		'none',
 		],
+	cardsPlayed: 0,
+	cardsPlayed2: 0,
 	playerOneCard: [],
 	playerTwoCard: [],
 	leftPile: [],
@@ -211,6 +213,8 @@ const game = {
 				return 
 			} else if (this.playerOneDeck.length == 0){
 				$('.k').remove()
+				$('#card-count').hide()
+				$('#card-count2').hide()
 				$('.game-screen').append('<div class="outline k"></div>')
 			}
 		}
@@ -349,13 +353,37 @@ const game = {
 			}
 		})
 		if (this.playerOneDeck.length == 0 && cardsPlayed == 20) {
-			alert('Player 1 wins')
-			return
+			$('.game-screen').append('<h3 class="end">Player 1 Wins!</h3>')
 		} else if (this.playerTwoDeck.length == 0 && cardsPlayed2 == 20) {
-			alert('Player 2 wins')
-			return
+			$('.game-screen').append('<h3 class="end">Player 2 Wins!</h3>')	
 		}
+		this.cardsPlayed = cardsPlayed  
+		this.cardsPlayed2 = cardsPlayed2
 	},
+	checkKey(key) {
+		if (this.cardsPlayed < 20 && this.cardsPlayed2 < 20 && this.timer != 0) {
+			if (key == 'f') {
+				this.drawCards()
+			} else if (key == 'd') {
+				this.selectCard()
+			} else if (key == 's') {
+				this.selectPile()
+			} else if (key == 'a') {
+				this.checkIfCardPlays()
+			} else if (key == 'k') {
+				this.drawCards2()
+			} else if (key == 'l') {
+				this.selectCard2()
+			} else if (key == ';') {
+				this.selectPile2()
+			} else if (key == "'") {
+				this.checkIfCardPlays2()
+			}
+		} else {
+			$('.shuffle').hide()
+			$('.flip').hide()
+		}
+	}
 }
 
 
@@ -394,52 +422,50 @@ $('.game-screen').click((e)=>{
 })
 
 $('body').keypress((e)=>{
-	if (e.key == 'f') {
-		game.drawCards()
-	}
+	game.checkKey(e.key)
 })
 
-$('body').keypress((e)=>{
-	if (e.key == 'd') {
-		game.selectCard()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == 'd') {
+// 		game.selectCard()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == 's') {
-		game.selectPile()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == 's') {
+// 		game.selectPile()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == 'a') {
-		game.checkIfCardPlays()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == 'a') {
+// 		game.checkIfCardPlays()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == 'k') {
-		game.drawCards2()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == 'k') {
+// 		game.drawCards2()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == 'l') {
-		game.selectCard2()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == 'l') {
+// 		game.selectCard2()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == ';') {
-		game.selectPile2()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == ';') {
+// 		game.selectPile2()
+// 	}
+// })
 
-$('body').keypress((e)=>{
-	if (e.key == "'") {
-		game.checkIfCardPlays2()
-	}
-})
+// $('body').keypress((e)=>{
+// 	if (e.key == "'") {
+// 		game.checkIfCardPlays2()
+// 	}
+// })
 
 
 game.startGame()
