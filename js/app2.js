@@ -214,7 +214,6 @@ const game = {
 			} else if (this.playerOneDeck.length == 0){
 				$('.k').remove()
 				$('#card-count').hide()
-				$('#card-count2').hide()
 				$('.game-screen').append('<div class="outline k"></div>')
 			}
 		}
@@ -229,6 +228,7 @@ const game = {
 				return 
 			} else if (this.playerTwoDeck.length == 0){
 				$('.a').remove()
+				$('#card-count2').hide()
 				$('.game-screen').append('<div class="outline a"></div>')
 			}
 		}
@@ -238,14 +238,12 @@ const game = {
 		this.handOneIndex = (this.handOneIndex + 1) % $pOneHand.length 
 		$pOneHand.removeClass('highlight')
 		$pOneHand.eq(this.handOneIndex).addClass('highlight')
-		console.log($pOneHand.eq(this.handOneIndex).children('img').length)
 	},
 	selectCard2() {
 		const $pTwoHand = $('.pTwo')
 		this.handTwoIndex = (this.handTwoIndex + 1) % $pTwoHand.length 
 		$pTwoHand.removeClass('highlight2')
 		$pTwoHand.eq(this.handTwoIndex).addClass('highlight2')
-		console.log($pTwoHand.eq(this.handTwoIndex).children('img').length)
 	},
 	selectPile() {
 		if ($('.c').hasClass('highlight')) {
@@ -346,10 +344,8 @@ const game = {
 		this.deck.forEach((card) => {
 			if (card.played == true) {
 				cardsPlayed++
-				console.log(cardsPlayed);
 			} else if (card.played2 == true) {
 				cardsPlayed2++
-				console.log(cardsPlayed2);
 			}
 		})
 		if (this.playerOneDeck.length == 0 && cardsPlayed == 20) {
@@ -414,58 +410,12 @@ $('.game-screen').click((e)=>{
 	}
 })
 
-$('.game-screen').click((e)=>{
-	const $e = $(e.target)
-	if ($e.attr('id') == 'player1-card-back') {
-		game.drawCards()
-	}
-})
 
 $('body').keypress((e)=>{
 	game.checkKey(e.key)
 })
 
-// $('body').keypress((e)=>{
-// 	if (e.key == 'd') {
-// 		game.selectCard()
-// 	}
-// })
 
-// $('body').keypress((e)=>{
-// 	if (e.key == 's') {
-// 		game.selectPile()
-// 	}
-// })
-
-// $('body').keypress((e)=>{
-// 	if (e.key == 'a') {
-// 		game.checkIfCardPlays()
-// 	}
-// })
-
-// $('body').keypress((e)=>{
-// 	if (e.key == 'k') {
-// 		game.drawCards2()
-// 	}
-// })
-
-// $('body').keypress((e)=>{
-// 	if (e.key == 'l') {
-// 		game.selectCard2()
-// 	}
-// })
-
-// $('body').keypress((e)=>{
-// 	if (e.key == ';') {
-// 		game.selectPile2()
-// 	}
-// })
-
-// $('body').keypress((e)=>{
-// 	if (e.key == "'") {
-// 		game.checkIfCardPlays2()
-// 	}
-// })
 
 
 game.startGame()

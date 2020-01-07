@@ -33,7 +33,7 @@ body {
 
 h1 {
 	position: absolute;
-	left: 320px;
+	left: 315px;
 	top: -150px;
 	font-size: 190px;
 	color: white;
@@ -70,6 +70,7 @@ button:hover {
 	left: 265px;
 	height: 100px;
 	width: 370px;
+	border-radius: 20px;
 }
 
 #start:hover {
@@ -218,7 +219,7 @@ img {
 
 .timer {
 	position: absolute;
-	left: 460px;
+	left: 450px;
 	top: 20px;
 	font-size: 50px;
 	
@@ -246,6 +247,7 @@ h3 {
 	left: 265px;
 	height: 100px;
 	width: 370px;
+	border-radius: 20px;
 }
 
 #instruction-text:hover {
@@ -314,8 +316,8 @@ a {
 #card-count {
 	font-size: 50px;
 	color: white;
-	background-color: red;
-	border-radius: 15%;
+	background-color: black;
+	border-radius: 40%;
 	position: absolute;
 	right: 80px;
 	top: 470px;
@@ -351,5 +353,6 @@ a {
 	left: 130px;
 	padding: 18px;
 }
+
 
 

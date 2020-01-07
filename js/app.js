@@ -17,7 +17,7 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 5,
+	timer: 70,
 	timerOn: false,
 	timerId: 0,
 	cardsPlayed: 0,
