@@ -72,19 +72,21 @@ img {
 }
 
 .b {
-	right: 405px;
+	/*right: 405px;*/
+	right: 430px;
 	top: 335px;
 	border: 3px solid blue;
 }
 
 .c {
-	right: 570px;
+	/*right: 570px;*/
+	right: 595px;
 	top: 335px;
 	border: 3px solid blue;
 }
 
 .c2 {
-	right: 565px;
+	right: 590px;
 	top: 329px;
 	border: 6px solid transparent;
 	border-radius: 13%;
@@ -93,12 +95,12 @@ img {
 }
 
 .d {
-	right: 735px;
+	right: 760px;
 	top: 335px;
 	border: 3px solid blue;
 }
 .d2 {
-	right: 730px;
+	right: 754px;
 	top: 329px;
 	border: 6px solid transparent;
 	border-radius: 13%;
@@ -106,7 +108,7 @@ img {
 }
 
 .e {
-	right: 900px;
+	right: 925px;
 	top: 335px;
 	border: 3px solid blue;
 }
@@ -193,7 +195,7 @@ img {
 .flip {
 	position: absolute; 
 	top: 450px;
-	right: 1050px;
+	right: 1080px;
 	height: 65px;
 	width: 120px;
 	font-size: 34px;
@@ -206,7 +208,6 @@ img {
 	position: absolute;
 	border: 5px solid aqua;
 	background-color: green;
-	/*background: linear-gradient(blue, darkred);*/
 	border-radius: 10%
 	padding: 15px;
 }
@@ -215,7 +216,7 @@ img {
 .shuffle {
 	position: absolute;
 	top: 360px;
-	right: 1050px;
+	right: 1080px;
 	height: 65px;
 	width: 120px;
 	font-size: 34px;
