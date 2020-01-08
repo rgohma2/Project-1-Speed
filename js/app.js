@@ -17,7 +17,7 @@ class Card {
 
 const game = {
 	deck: [],
-	timer: 70,
+	timer: 60,
 	timerOn: false,
 	timerId: 0,
 	cardsPlayed: 0,
@@ -329,7 +329,13 @@ const game = {
 			$('.flip').hide()
 			$('#new-time').text('0')
 		}
-	}
+	},
+	// restart() {
+	// 	$('.end').remove()
+	// 	$('.game-screen').remove()
+	// 	$('body').append($('<div class="game-screen">g</div>'))
+
+	// }
 }
 
 $('#start').click(() => {
@@ -405,6 +411,12 @@ $('body').keypress((e)=>{
 	game.checkKey(e.key)
 })
 
+$('.game-screen').click((e)=>{
+	const $e = $(e.target)
+	if ($e.hasClass('restart') == true) {
+		game.restart()
+	}
+})
 
 
 

@@ -93,7 +93,7 @@ const game = {
 	},
 	dealDeck() {
 		// rearranges the deck array into the gameplay setup by pushing cards into deck/pile/hand arrays
-		$('#deal-message').hide()
+		$('#deal-message').fadeOut()
 		this.shuffle(this.deck)
 		this.deck.forEach((card, i) => {
 			if (i < 6) {

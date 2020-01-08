@@ -63,6 +63,8 @@ button:hover {
 	cursor: pointer;
 }
 
+button:focus {outline:0;}
+
 #start {
 	font-size: 64px;
 	position: absolute;
